@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+./docker/npm-server install
+./docker/npm-client install

@@ -1,0 +1,25 @@
+{
+  "name": "mockie-server",
+  "version": "0.0.1",
+  "description": "The Random Data Generator",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "random",
+    "data",
+    "generator",
+    "fake"
+  ],
+  "author": "Francesco Malatesta",
+  "license": "MIT",
+  "dependencies": {
+    "boom": "^3.1.3",
+    "csv-generate": "^1.0.0",
+    "faker": "^3.1.0",
+    "hapi": "^13.3.0",
+    "joi": "^8.0.5"
+  }
+}
