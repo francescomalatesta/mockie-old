@@ -4,8 +4,10 @@ let Button = ReactBootstrap.Button;
 
 class Generator extends React.Component {
     render() {
+        let items = this.props.items;
+
         return <div className="generator">
-            <FieldsBox items={this.props.state.items} />
+            <FieldsBox items={items} />
 
             <hr />
 
@@ -48,13 +50,21 @@ class FieldsList extends React.Component {
                 return <Field key={item.id} data={item} />;
             })}
 
-            <Button bsStyle="success" className="addFieldButton form-control">+ Add Field</Button>
+            <AddFieldButton />
         </div>
+    }
+}
+
+class AddFieldButton extends React.Component {
+    render() {
+        return <Button bsStyle="success" className="addFieldButton form-control" onClick={() => store.dispatch({ type: 'ADD_FIELD' })}>+ Add Field</Button>
     }
 }
 
 class Field extends React.Component {
     render() {
+        let data = this.props.data;
+
         return <Row className="field">
             <Col md={5}>
                 <input type="text" className="form-control" placeholder="Field Name..." />
@@ -63,7 +73,7 @@ class Field extends React.Component {
                 <Button bsStyle="info" className="form-control">Choose Type</Button>
             </Col>
             <Col md={2}>
-                <Button bsStyle="danger" className="form-control">Remove</Button>
+                <Button bsStyle="danger" className="form-control" onClick={() => store.dispatch({ type: 'REMOVE_FIELD', id: data.id })}>Remove</Button>
             </Col>
         </Row>
     }
@@ -101,9 +111,48 @@ class OptionsBox extends React.Component {
     }
 }
 
-var state = {items: [{name: '', type: null}]};
 
-ReactDOM.render(
-    <Generator state={state} />,
-    document.getElementById('application')
-);
+function reducer (items = [{id: 1, name: '', type: null}], action) {
+    switch (action.type){
+        case 'ADD_FIELD':
+            return [
+                ...items,
+                {
+                    id: items.length + 1,
+                    name: '',
+                    type: null
+                }
+            ];
+            break;
+        case 'REMOVE_FIELD':
+            let newItems = [...items];
+
+            if(items.length > 1) {
+                newItems.splice(
+                    newItems.findIndex((item) => {
+                        return item.id == action.id;
+                    }), 1
+                );
+
+                return newItems;
+            }
+
+            return newItems;
+            break;
+        default:
+            return items;
+            break;
+    }
+}
+
+const store = window.Redux.createStore(reducer);
+
+function render() {
+    ReactDOM.render(
+        <Generator items={store.getState()} />,
+        document.getElementById('application')
+    );
+}
+
+render();
+store.subscribe(render);

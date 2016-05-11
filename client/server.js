@@ -45,6 +45,26 @@ server.register([Vision, Inert], function (err) {
 
     server.route({
         method: 'GET',
+        path: '/assets/vendor/redux/{param*}',
+        handler: {
+            directory: {
+                path: 'node_modules/redux'
+            }
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/assets/vendor/react-redux/{param*}',
+        handler: {
+            directory: {
+                path: 'node_modules/react-redux'
+            }
+        }
+    });
+
+    server.route({
+        method: 'GET',
         path: '/assets/{param*}',
         handler: {
             directory: {
