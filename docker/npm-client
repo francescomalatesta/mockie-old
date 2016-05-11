@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run -it --rm --name npm -v "$PWD":/usr/src/app -w /usr/src/app/client node:6 npm "$@"

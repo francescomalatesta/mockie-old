@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mockie! - The Random Data Generator</title>
+
+        <link rel="stylesheet" href="<%= asset('assets/css/bootstrap.min.css') %>">
+        <link rel="stylesheet" href="<%= asset('assets/css/bootstrap-theme.min.css') %>">
+
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+
+        <link rel="stylesheet" href="<%= asset('assets/css/style.css') %>">
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <span>Mockie!</span>
+                    </li>
+                    <li>
+                        <a href="<%= asset('') %>">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Mockie!</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aspernatur consequatur ducimus eligendi expedita facere hic ipsum, maxime minima molestias numquam provident repellat, similique soluta? Blanditiis iure magni temporibus?</p>
+
+                            <hr />
+
+                            <div id="application"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="<%= asset('assets/vendor/react/dist/react.js') %>"></script>
+        <script src="<%= asset('assets/vendor/react-dom/dist/react-dom.js') %>"></script>
+        <script src="<%= asset('assets/vendor/react-bootstrap/dist/react-bootstrap.js') %>"></script>
+
+        <script src="<%= asset('assets/js/app.js') %>"></script>
+    </body>
+</html>
