@@ -4,8 +4,7 @@ A random data generation microservice. Both via API or a simple client.
 
 ## Install
 
-1. Run `docker/provision`
-2. Run `docker/npm run build`
+1. Run `docker/install`
 2. Run `docker/init`
 
 Done!

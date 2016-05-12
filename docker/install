@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+./docker/provision
+./docker/gulp
+
+echo "Ready to Rock! Just type docker/init to get started!"
