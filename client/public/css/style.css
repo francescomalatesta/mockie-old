@@ -74,10 +74,17 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    font-size: 40px;
     margin: 20px 0px;
     text-align: center;
     color: #FFFFFF;
+}
+
+.sidebar-nav > .sidebar-brand h1 {
+    font-size: 48px;
+}
+.sidebar-nav > .sidebar-brand h2.subtitle {
+    font-size: 14px;
+    margin-top: 0px;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -121,18 +128,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.addFieldButton {
-    margin-top: 10px;
-}
-
 .field {
     margin-bottom: 15px;
 }
 
 .generateButton {
     font-weight: bold;
-}
-
-.little-separated {
-    margin-top: 20px;
 }

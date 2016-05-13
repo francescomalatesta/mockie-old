@@ -15,50 +15,20 @@ server.register([Vision, Inert], function (err) {
 
     server.route({
         method: 'GET',
-        path: '/assets/vendor/react/{param*}',
+        path: '/assets/vendor/vue/{param*}',
         handler: {
             directory: {
-                path: 'node_modules/react'
+                path: 'node_modules/vue'
             }
         }
     });
 
     server.route({
         method: 'GET',
-        path: '/assets/vendor/react-dom/{param*}',
+        path: '/assets/vendor/vue-strap/{param*}',
         handler: {
             directory: {
-                path: 'node_modules/react-dom'
-            }
-        }
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/assets/vendor/react-bootstrap/{param*}',
-        handler: {
-            directory: {
-                path: 'node_modules/react-bootstrap'
-            }
-        }
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/assets/vendor/redux/{param*}',
-        handler: {
-            directory: {
-                path: 'node_modules/redux'
-            }
-        }
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/assets/vendor/react-redux/{param*}',
-        handler: {
-            directory: {
-                path: 'node_modules/react-redux'
+                path: 'node_modules/vue-strap'
             }
         }
     });
