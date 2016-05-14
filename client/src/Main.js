@@ -92,14 +92,47 @@ new Vue({
                     });
                 }
 
-                this.$http({url: 'http://localhost:3000/generate', method: 'POST', data: {
-                    fields: fieldsArray,
-                    count: 1,
-                    output: 'json'
+                this.$http({url: 'http://localhost:3000/preview', method: 'POST', data: {
+                    fields: fieldsArray
                 }}).then(function (response) {
                     this.previewContent = response.data;
                 }, function (response) {
                     this.previewContent = 'Errors. Try again.';
+                });
+            }
+        },
+        generateFile: function () {
+            var mustRefresh = true;
+            var fieldsArray = [];
+
+            for(var c in this.fields){
+                var item = this.fields[c];
+
+                if(item.type === null){
+                    mustRefresh = false;
+                }
+
+                if(item.name === '') {
+                    mustRefresh = false;
+                }
+            }
+
+            if(mustRefresh) {
+                for(var i in this.fields){
+                    fieldsArray.push({
+                        name: this.fields[i].name,
+                        type: this.fields[i].type
+                    });
+                }
+
+                this.$http({url: 'http://localhost:3000/generate', method: 'POST', data: {
+                    fields: fieldsArray,
+                    count: this.items_count,
+                    output: 'json'
+                }}).then(function (response) {
+                    window.location.href = 'http://localhost:3000/downloads/' + response.data.url;
+                }, function (response) {
+                    alert('Some issues occurred during the generation procedure. Try again.');
                 });
             }
         }
