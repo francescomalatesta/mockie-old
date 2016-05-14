@@ -6,9 +6,9 @@ new Vue({
     el: '#application',
     data: {
         fields: [
-            { name: "first_name", type: "name.firstName" },
-            { name: "last_name", type: "name.lastName" },
-            { name: "email", type: "internet.email" }
+            { name: "first_name", type: "name.firstName", typeLabel: "Name > First Name" },
+            { name: "last_name", type: "name.lastName", typeLabel: "Name > Last Name" },
+            { name: "email", type: "internet.email", typeLabel: "Internet > Email" }
         ],
         items_count: 100,
         output_format: 'json',
@@ -58,6 +58,11 @@ new Vue({
                 '.' +
                 this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[fieldTypeIndex].slug;
 
+            fields[fieldIndex].typeLabel =
+                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].name +
+                ' > ' +
+                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[fieldTypeIndex].name;
+
             this.fields = fields;
             this.refreshPreview();
             
@@ -65,6 +70,7 @@ new Vue({
         },
         refreshPreview: function () {
             var mustRefresh = true;
+            var fieldsArray = [];
 
             for(var c in this.fields){
                 var item = this.fields[c];
@@ -79,8 +85,15 @@ new Vue({
             }
 
             if(mustRefresh) {
+                for(var i in this.fields){
+                    fieldsArray.push({
+                        name: this.fields[i].name,
+                        type: this.fields[i].type
+                    });
+                }
+
                 this.$http({url: 'http://localhost:3000/generate', method: 'POST', data: {
-                    fields: this.fields,
+                    fields: fieldsArray,
                     count: 1,
                     output: 'json'
                 }}).then(function (response) {

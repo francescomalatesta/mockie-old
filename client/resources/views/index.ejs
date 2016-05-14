@@ -48,7 +48,7 @@
                                                 <div class="col-md-5">
                                                     <button class="btn btn-info form-control" v-on:click="setSelectedField($index)" @click="showSidebar = true">
                                                         <span v-if="field.type === null">Choose Type</span>
-                                                        <span v-else>{{ field.type }}</span>
+                                                        <span v-else>Chosen Type: {{ field.typeLabel }}</span>
                                                     </button>
                                                 </div>
                                                 <div class="col-md-2">
