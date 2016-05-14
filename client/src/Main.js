@@ -3,19 +3,26 @@
 new Vue({
     el: '#application',
     data: {
+        fields: [
+            { name: "id", type: "random.uuid" },
+            { name: "first_name", type: "name.firstName" },
+            { name: "last_name", type: "name.lastName" },
+            { name: "email", type: "internet.email" }
+        ],
         items_count: 100,
         output_format: 'json',
-        fields: [
-            { name: "first_name", type: null },
-            { name: "last_name", type: null },
-            { name: "email", type: null }
-        ],
 
+        availableFieldTypeCategories: require('./AvailableFields').fieldTypeCategories,
+
+        // UI
         showSidebar: false,
-        currentlySelectedField: null
+        currentlySelectedField: 0,
+        chosenFieldTypeCategory: 0
     },
     components: {
-        sidebar: window.VueStrap.aside
+        sidebar: window.VueStrap.aside,
+        accordion: window.VueStrap.accordion,
+        panel: window.VueStrap.panel
     },
     methods: {
         addField: function () {
@@ -33,6 +40,18 @@ new Vue({
         },
         setSelectedField: function (index) {
             this.currentlySelectedField = index;
+        },
+        changeFieldType: function (fieldIndex, fieldTypeIndex) {
+            var fields = this.fields;
+
+            fields[fieldIndex].type =
+                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].slug +
+                '.' +
+                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[fieldTypeIndex].slug;
+
+            this.fields = fields;
+            
+            this.showSidebar = false;
         }
     }
 });
