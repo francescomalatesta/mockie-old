@@ -9,9 +9,6 @@ module.exports = {
             method: 'POST',
             path: '/generate',
             handler: function (request, reply) {
-
-                Faker.locale = 'de';
-
                 var fields = request.payload.fields;
                 var itemsCount = request.payload.count;
                 var outputFormat = request.payload.format;
