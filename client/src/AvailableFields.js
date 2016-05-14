@@ -485,7 +485,7 @@ module.exports = {
                     "slug":"lastName"
                 },
                 {
-                    "name":"Find Name",
+                    "name":"Full Name",
                     "slug":"findName"
                 },
                 {
