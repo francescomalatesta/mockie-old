@@ -19,7 +19,8 @@ new Vue({
         showSidebar: false,
         currentlySelectedField: 0,
         chosenFieldTypeCategory: 0,
-        previewContent: ''
+        previewContent: '',
+        isGenerating: false
     },
     components: {
         sidebar: window.VueStrap.aside,
@@ -125,11 +126,13 @@ new Vue({
                     });
                 }
 
+                this.isGenerating = true;
                 this.$http({url: 'http://localhost:3000/generate', method: 'POST', data: {
                     fields: fieldsArray,
                     count: this.items_count,
-                    output: 'json'
+                    output: this.output_format
                 }}).then(function (response) {
+                    this.isGenerating = false;
                     window.location.href = 'http://localhost:3000/downloads/' + response.data.url;
                 }, function (response) {
                     alert('Some issues occurred during the generation procedure. Try again.');

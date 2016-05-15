@@ -85,7 +85,6 @@
                                             <select class="form-control" v-model="output_format">
                                                 <option value="json">JSON</option>
                                                 <option value="csv">CSV</option>
-                                                <option value="xml">XML</option>
                                             </select>
                                         </p>
                                     </div>
@@ -96,7 +95,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button class="btn btn-success form-control generateButton" v-on:click="generateFile">
-                                            Generate {{ items_count }} items in one nice file!
+                                            <span v-if="isGenerating">Generating your file, please wait...</span>
+                                            <span v-else>Generate {{ items_count }} items in one nice file!</span>
                                         </button>
                                     </div>
                                 </div>

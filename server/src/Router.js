@@ -5,20 +5,30 @@ const fs = require('fs');
 const Joi = require('joi');
 const Faker = require('faker');
 
-const findRemoveSync = require('find-remove');
+const fileSaver = require('./FileSaver');
+const oldFileRemover = require('./OldFileRemover');
 
-function removeOldFiles() {
-    findRemoveSync('generated', {age: {seconds: 120}, ignore: '.gitignore' });
+function transform(generatedItems, outputFormat) {
+    var transformerName = outputFormat[0].toUpperCase() + outputFormat.slice(1);
+    var transformer = require('./Transformers/' + transformerName + 'Transformer');
+
+    return transformer(generatedItems);
 }
 
-function saveFile(fileContents) {
-    var fileName = 'data-' + new Date().getTime() + '.json';
-    fs.writeFileSync('generated/' + fileName, fileContents);
-    return fileName;
-}
+function generateItems(fields, itemsCount) {
+    var generatedItems = [];
+    var item;
+    for(var c = 0; c < itemsCount; c++) {
+        item = {};
 
-function transform(generatedItems) {
-    return JSON.stringify(generatedItems);
+        for(var i in fields) {
+            item[fields[i].name] = Faker.fake('{{' + fields[i].type + '}}');
+        }
+
+        generatedItems.push(item);
+    }
+
+    return generatedItems;
 }
 
 module.exports = {
@@ -29,24 +39,16 @@ module.exports = {
             handler: function (request, reply) {
                 var fields = request.payload.fields;
                 var itemsCount = request.payload.count;
-                var outputFormat = request.payload.format;
+                var outputFormat = request.payload.output;
 
-                var generatedItems = [];
-                var item;
-                for(var c = 0; c < itemsCount; c++) {
-                    item = {};
+                oldFileRemover();
 
-                    for(var i in fields) {
-                        item[fields[i].name] = Faker.fake('{{' + fields[i].type + '}}');
-                    }
-
-                    generatedItems.push(item);
-                }
-
-                removeOldFiles();
-
-                var url = saveFile(
-                    transform(generatedItems)
+                var url = fileSaver(
+                    transform(
+                        generateItems(fields, itemsCount),
+                        outputFormat
+                    ),
+                    outputFormat
                 );
 
                 reply({
@@ -73,13 +75,8 @@ module.exports = {
             path: '/preview',
             handler: function (request, reply) {
                 var fields = request.payload.fields;
-
-                var item = {};
-                for(var i in fields) {
-                    item[fields[i].name] = Faker.fake('{{' + fields[i].type + '}}');
-                }
-
-                reply([item]);
+                var generatedItems = generateItems(fields, 1);
+                reply(generatedItems);
             },
             config: {
                 validate: {
