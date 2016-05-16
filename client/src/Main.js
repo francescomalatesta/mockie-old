@@ -10,8 +10,15 @@ new Vue({
             { name: "last_name", type: "name.lastName", typeLabel: "Name > Last Name" },
             { name: "email", type: "internet.email", typeLabel: "Internet > Email" }
         ],
+
         items_count: 100,
+
         output_format: 'json',
+        available_output_formats: [
+            {'name': 'JSON', 'extension': 'json'},
+            {'name': 'CSV', 'extension': 'csv'},
+            {'name': 'XML', 'extension': 'xml'}
+        ],
 
         availableFieldTypeCategories: require('./AvailableFields').fieldTypeCategories,
 
