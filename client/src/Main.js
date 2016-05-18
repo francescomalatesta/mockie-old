@@ -140,7 +140,7 @@ new Vue({
                     output: this.output_format
                 }}).then(function (response) {
                     this.isGenerating = false;
-                    window.location.href = 'http://localhost:3000/downloads/' + response.data.url;
+                    window.location.href = response.data.url;
                 }, function (response) {
                     alert('Some issues occurred during the generation procedure. Try again.');
                 });

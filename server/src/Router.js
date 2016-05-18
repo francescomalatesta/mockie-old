@@ -32,7 +32,7 @@ module.exports = {
 
                 reply({
                     status: 'success',
-                    url: url
+                    url: 'http://localhost:3000/downloads/' + url
                 });
             },
             config: {
