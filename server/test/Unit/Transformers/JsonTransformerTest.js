@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 
-const JsonTransformer = require('../../src/Transformers/JsonTransformer');
+const JsonTransformer = require('../../../src/Transformers/JsonTransformer');
 
 describe('JsonTransformer', function () {
     it('should return a well formed json string', function () {

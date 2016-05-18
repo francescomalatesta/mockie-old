@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 
-const XmlTransformer = require('../../src/Transformers/XmlTransformer');
+const XmlTransformer = require('../../../src/Transformers/XmlTransformer');
 
 describe('XmlTransformer', function () {
     it('should return a well formed xml string', function () {

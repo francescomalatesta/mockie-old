@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 
-const CsvTransformer = require('../../src/Transformers/CsvTransformer');
+const CsvTransformer = require('../../../src/Transformers/CsvTransformer');
 
 describe('CsvTransformer', function () {
     it('should return a well formed csv string', function () {
