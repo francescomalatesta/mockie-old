@@ -2,6 +2,7 @@ version: '2'
 
 services:
     api:
+        container_name: mockie_api
         image: node:6
         ports:
             - 3000:3000
@@ -10,6 +11,7 @@ services:
         working_dir: /usr/src/server
         command: npm start
     web:
+        container_name: mockie_web
         image: node:6
         ports:
             - 8000:8000

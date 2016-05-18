@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+export USER_ID=$(id -u -r)
+export USER_NAME=$(whoami)
+
 ./docker/stop
 docker-compose up -d
 

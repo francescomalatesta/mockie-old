@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-docker run -it --rm --name npm -v "$PWD":/usr/src/app -w /usr/src/app/server node:6 npm "$@"
+export USER_ID=$(id -u -r)
+export USER_NAME=$(whoami)
+export COMMAND="adduser $USER_NAME --uid $USER_ID --disabled-password --gecos ''"
+
+docker run -it --rm --name npm -v "$PWD":/usr/src/app -w /usr/src/app/server node:6 $COMMAND &> /dev/null && cd server && npm "$@"

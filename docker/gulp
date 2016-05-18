@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-docker run -it --rm --name npm -v "$PWD":/usr/src/app -w /usr/src/app/client node:6 node_modules/.bin/gulp "$@"
+export USER_ID=$(id -u -r)
+export USER_NAME=$(whoami)
+export COMMAND="adduser $USER_NAME --uid $USER_ID --disabled-password --gecos ''"
+
+docker run -it --rm --name npm -v "$PWD":/usr/src/app -w /usr/src/app/client node:6 $COMMAND &> /dev/null && cd client && node_modules/.bin/gulp "$@"
