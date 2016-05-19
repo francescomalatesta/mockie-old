@@ -135,3 +135,20 @@ body {
 .generateButton {
     font-weight: bold;
 }
+
+.sets-controls {
+    margin-top: 15px;
+}
+
+.set-name {
+    margin-top: 0px;
+}
+
+.set-fields {
+    margin-left: 10px;
+}
+
+.set-separator {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}

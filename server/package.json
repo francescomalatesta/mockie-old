@@ -24,7 +24,8 @@
     "hapi": "^13.3.0",
     "inert": "^4.0.0",
     "joi": "^8.0.5",
-    "js2xmlparser": "^1.0.0"
+    "js2xmlparser": "^1.0.0",
+    "tingodb": "^0.4.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",

@@ -1,0 +1,9 @@
+{"k":"0000000078","o":"0000000285","v":"001"}
+{"_id":2,"_uid":2,"_dt":1463668337872,"_s":"469e19ed320f0c9fd291fa4ff8aaf9aa"}
+{"name":"My Set #1","fields":[{"name":"first_name","type":"name.firstName","typeLabel":"Name > First Name"},{"name":"last_name","type":"name.lastName","typeLabel":"Name > Last Name"},{"name":"email","type":"internet.email","typeLabel":"Internet > Email"}],"_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000078","o":"0000000511","v":"001"}
+{"_id":3,"_uid":3,"_dt":1463668444870,"_s":"897c87447d1c5e66c941bbb7ea2b76bc"}
+{"name":"Complete Set","fields":[{"name":"first_name","type":"name.firstName","typeLabel":"Name > First Name"},{"name":"last_name","type":"name.lastName","typeLabel":"Name > Last Name"},{"name":"email","type":"internet.email","typeLabel":"Internet > Email"},{"name":"city","type":"address.city","typeLabel":"Address > City"},{"name":"phone_number","type":"phone.phoneNumber","typeLabel":"Phone > Phone Number"},{"name":"bio","type":"lorem.sentence","typeLabel":"Lorem > Sentence"}],"_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000078","o":"0000000364","v":"001"}
+{"_id":4,"_uid":4,"_dt":1463669007726,"_s":"e6841847d68f9987c628736c8dda918c"}
+{"name":"Full Name Set","fields":[{"name":"full_name","type":"name.findName","typeLabel":"Name > Full Name"},{"name":"phone_number","type":"phone.phoneNumber","typeLabel":"Phone > Phone Number"},{"name":"email","type":"internet.email","typeLabel":"Internet > Email"},{"name":"city","type":"address.city","typeLabel":"Address > City"}],"_id":{"$wrap":"$oid","v":4}}

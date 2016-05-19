@@ -7,6 +7,8 @@ const oldFileRemover = require('./OldFileRemover');
 const transformer = require('./Transformer');
 const generator = require('./Generator');
 
+const FieldsSetRepository = require('./Repositories/FieldsSetRepository')();
+
 module.exports = {
     registerRoutes: function (server) {
         server.route({
@@ -62,6 +64,52 @@ module.exports = {
                     payload: {
                         fields: Joi.array().min(1).items(Joi.object().keys({
                             name: Joi.string().required(),
+                            type: Joi.string().required()
+                        })).required()
+                    }
+                }
+            }
+        });
+
+        server.route({
+            method: 'GET',
+            path: '/fields-sets',
+            handler: function (request, reply) {
+                FieldsSetRepository.loadSets(
+                    function (err) {
+                        reply(err);
+                    },
+                    function (sets) {
+                        reply(sets);
+                    }
+                );
+            }
+        });
+
+        server.route({
+            method: 'POST',
+            path: '/add-set',
+            handler: function (request, reply) {
+                FieldsSetRepository.addSet(
+                    request.payload.fields,
+                    request.payload.name,
+                    function (err) {
+                        reply(err);
+                    },
+                    function () {
+                        reply({
+                            status: 'success'
+                        });
+                    }
+                );
+            },
+            config: {
+                validate: {
+                    payload: {
+                        name: Joi.string().required(),
+                        fields: Joi.array().min(1).items(Joi.object().keys({
+                            name: Joi.string().required(),
+                            typeLabel: Joi.string().required(),
                             type: Joi.string().required()
                         })).required()
                     }

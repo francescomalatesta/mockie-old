@@ -21,9 +21,11 @@ new Vue({
         ],
 
         availableFieldTypeCategories: require('./AvailableFields').fieldTypeCategories,
+        fieldsSets: [],
 
         // UI
-        showSidebar: false,
+        showFieldTypeSidebar: false,
+        showFieldsSetsSidebar: false,
         currentlySelectedField: 0,
         chosenFieldTypeCategory: 0,
         previewContent: '',
@@ -39,6 +41,7 @@ new Vue({
     },
     ready: function () {
         this.refreshPreview();
+        this.loadFieldsSets();
     },
     methods: {
         addField: function () {
@@ -74,7 +77,7 @@ new Vue({
             this.fields = fields;
             this.refreshPreview();
             
-            this.showSidebar = false;
+            this.showFieldTypeSidebar = false;
         },
         refreshPreview: function () {
             var mustRefresh = true;
@@ -145,6 +148,37 @@ new Vue({
                     alert('Some issues occurred during the generation procedure. Try again.');
                 });
             }
+        },
+        loadFieldsSets: function () {
+            this.$http({url: 'http://localhost:3000/fields-sets', method: 'GET', data: {}}).then(function (response) {
+                this.fieldsSets = response.data;
+            }, function (response) {
+                alert('Errors while retrieving the fields sets list.');
+            });
+        },
+        useSavedFieldsSet : function (index) {
+            this.showFieldsSetsSidebar = false;
+            this.fields = this.fieldsSets[index].fields;
+            this.refreshPreview();
+        },
+        saveCurrentSet: function () {
+            var setName = prompt("Please enter a name for your fields set:", "My Set Name");
+
+            this.$http({url: 'http://localhost:3000/add-set', method: 'POST', data: {
+                fields: this.fields,
+                name: setName
+            }}).then(function (response) {
+                alert('Saved!');
+                this.loadFieldsSets();
+            }, function (response) {
+                alert('Some issues occurred during the save procedure. Try again.');
+            });
         }
     }
+});
+
+Vue.filter('show_names', function (fields) {
+    return fields.map(function (field) {
+       return field.name;
+    }).join(', ');
 });

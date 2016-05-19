@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="<%= asset('assets/css/style.css') %>">
     </head>
-    <body>
+    <body id="application">
         <div id="wrapper">
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
@@ -20,7 +20,7 @@
                         <h2 class="subtitle">Random Data Generator</h2>
                     </li>
                     <li>
-                        <a href="<%= asset('') %>">Dashboard</a>
+                        <a href="#" @click="showFieldsSetsSidebar = true">Fields Sets</a>
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,7 @@
 
                             <hr />
 
-                            <div id="application">
+                            <div>
                                 <div class="row">
                                     <div class="col-md-7">
                                         <h2>Fields</h2>
@@ -46,7 +46,7 @@
                                                     <input type="text" class="form-control" placeholder="Field Name..." v-model="field.name" />
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <button class="btn btn-info form-control" v-on:click="setSelectedField($index)" @click="showSidebar = true">
+                                                    <button class="btn btn-info form-control" v-on:click="setSelectedField($index)" @click="showFieldTypeSidebar = true">
                                                         <span v-if="field.type === null">Choose Type</span>
                                                         <span v-else>Chosen Type: {{ field.typeLabel }}</span>
                                                     </button>
@@ -57,7 +57,11 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-default form-control" v-on:click="saveCurrentSet()">Save Fields Set</button>
+                                                </div>
+
+                                                <div class="col-md-9">
                                                     <button class="btn btn-success form-control" v-on:click="addField">+ Add Field</button>
                                                 </div>
                                             </div>
@@ -100,10 +104,10 @@
                                     </div>
                                 </div>
 
-                                <sidebar :show.sync="showSidebar" placement="right" header="Choose Field Type" :width="550">
+                                <sidebar :show.sync="showFieldTypeSidebar" placement="right" header="Choose Field Type" :width="550">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4>Choose the type for the <b>"{{ fields[currentlySelectedField].name }}"</b> field.</h4>
+                                            <h3>Choose the type for the <b>"{{ fields[currentlySelectedField].name }}"</b> field.</h3>
 
                                             <hr>
 
@@ -121,6 +125,32 @@
                                             <p v-for="type in availableFieldTypeCategories[chosenFieldTypeCategory].types">
                                                 <button class="btn btn-default form-control" v-on:click="changeFieldType(currentlySelectedField, $index)">{{ type.name }}</button>
                                             </p>
+                                        </div>
+                                    </div>
+                                </sidebar>
+
+                                <sidebar :show.sync="showFieldsSetsSidebar" placement="right" header="Choose Fields Set" :width="550">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3>Choose a fields set from your saved collection.</h3>
+
+                                            <hr />
+
+                                            <div v-for="set in fieldsSets">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <h4 class="set-name">{{ set.name }}</h4>
+                                                        <p class="set-fields"><i>{{ set.fields | show_names }}</i></p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p><button class="btn btn-success form-control" v-on:click="useSavedFieldsSet($index)">Use Set</button></p>
+                                                    </div>
+                                                </div>
+
+                                                <hr class="set-separator" />
+                                            </div>
+
+                                            <p v-if="fieldsSets.length == 0"><i>Oops, no saved sets right now! To save one, just choose the fields you want, and then click on "Save Fields Set".</i></p>
                                         </div>
                                     </div>
                                 </sidebar>
