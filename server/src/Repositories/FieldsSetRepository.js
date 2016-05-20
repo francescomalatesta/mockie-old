@@ -23,6 +23,13 @@ module.exports = function () {
         addSet: function (fields, name, onError, onSuccess) {
             var collection = db.collection('fields_sets');
             collection.insert({ name: name, fields: fields }, onError, onSuccess);
+        },
+        
+        deleteSet: function (setId, onError, onSuccess) {
+            var collection = db.collection('fields_sets');
+            collection.remove({
+                _id: setId
+            }, onError, onSuccess);
         }
     }
 };

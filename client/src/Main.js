@@ -173,6 +173,15 @@ new Vue({
             }, function (response) {
                 alert('Some issues occurred during the save procedure. Try again.');
             });
+        },
+        deleteFieldsSet: function (setId) {
+            if(confirm('Are you sure to delete this saved set?')) {
+                this.$http({url: 'http://localhost:3000/delete-set/' + setId, method: 'GET', data: {}}).then(function (response) {
+                    this.loadFieldsSets();
+                }, function (response) {
+                    alert('Errors while removing the fields set.');
+                });
+            }
         }
     }
 });

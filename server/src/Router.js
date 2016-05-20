@@ -87,6 +87,25 @@ module.exports = {
         });
 
         server.route({
+            method: 'GET',
+            path: '/delete-set/{setId}',
+            handler: function (request, reply) {
+                var setId = request.params.setId;
+
+                FieldsSetRepository.deleteSet(setId,
+                    function (err) {
+                        reply(err);
+                    },
+                    function () {
+                        reply({
+                            status: 'success'
+                        });
+                    }
+                );
+            }
+        });
+
+        server.route({
             method: 'POST',
             path: '/add-set',
             handler: function (request, reply) {

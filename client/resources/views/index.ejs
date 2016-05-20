@@ -138,12 +138,15 @@
 
                                             <div v-for="set in fieldsSets">
                                                 <div class="row">
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-6">
                                                         <h4 class="set-name">{{ set.name }}</h4>
                                                         <p class="set-fields"><i>{{ set.fields | show_names }}</i></p>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <p><button class="btn btn-success form-control" v-on:click="useSavedFieldsSet($index)">Use Set</button></p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <p><button class="btn btn-danger form-control" v-on:click="deleteFieldsSet(set._id)">Trash</button></p>
                                                     </div>
                                                 </div>
 
