@@ -8,6 +8,7 @@ require('./Filters/ShowNames')();
 
 // Load components
 var FieldTypeSelector = require('./Components/FieldTypeSelector')();
+var OutputFormatSelector = require('./Components/OutputFormatSelector')();
 var FieldsSets = require('./Components/FieldsSets')();
 var PreviewBox = require('./Components/PreviewBox')();
 var Generator = require('./Components/Generator')();
@@ -19,15 +20,13 @@ new Vue({
     el: '#application',
     data: {
         fields: config.defaultFields,
-
         itemsCount: 100,
-
-        outputFormat: 'json',
-        availableOutputFormats: config.availableOutputFormats
+        outputFormat: 'json'
     },
     components: {
         'preview-box': PreviewBox,
         'field-type-selector': FieldTypeSelector,
+        'output-format-selector': OutputFormatSelector,
         'fields-sets': FieldsSets,
         'generator': Generator
     },

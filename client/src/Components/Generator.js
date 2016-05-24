@@ -14,22 +14,22 @@ module.exports = function () {
         </button>`,
         methods: {
             generate: function () {
-                var mustRefresh = true;
+                var canGenerate = true;
                 var fieldsArray = [];
 
                 for(var c in this.fields){
                     var item = this.fields[c];
 
                     if(item.type === null){
-                        mustRefresh = false;
+                        canGenerate = false;
                     }
 
                     if(item.name === '') {
-                        mustRefresh = false;
+                        canGenerate = false;
                     }
                 }
 
-                if(mustRefresh) {
+                if(canGenerate) {
                     for(var i in this.fields){
                         fieldsArray.push({
                             name: this.fields[i].name,

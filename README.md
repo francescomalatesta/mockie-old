@@ -16,7 +16,6 @@ Done!
 
 *Order by priority, descending.*
 
-* Frontend application refactoring;
 * Better README file;
 * Smart Fields;
 * Macro Fields;
