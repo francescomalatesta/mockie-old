@@ -20,7 +20,7 @@
                         <h2 class="subtitle">Random Data Generator</h2>
                     </li>
                     <li>
-                        <a href="#" @click="showFieldsSetsSidebar = true">Fields Sets</a>
+                        <a href="#" v-on:click="this.$broadcast('open-fields-sets')">Fields Sets</a>
                     </li>
                 </ul>
             </div>
@@ -41,7 +41,7 @@
                                         <p>1. Choose your fields and their types.</p>
 
                                         <div id="fields">
-                                            <div class="row field" v-for="field in fields" v-on:keyup="refreshPreview">
+                                            <div class="row field" v-for="field in fields" v-on:keyup="this.$broadcast('refresh-preview', fields)">
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" placeholder="Field Name..." v-model="field.name" />
                                                 </div>
@@ -58,7 +58,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <button class="btn btn-default form-control" v-on:click="saveCurrentSet()">Save Fields Set</button>
+                                                    <button class="btn btn-default form-control" v-on:click="this.$broadcast('save-current-set', fields)">Save Fields Set</button>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -68,9 +68,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <h2>Preview</h2>
-                                        <p>2. Here's an example of what you're going to generate.</p>
-                                        <pre>{{ previewContent | json }}</pre>
+                                        <preview-box></preview-box>
                                     </div>
                                 </div>
 
@@ -80,14 +78,14 @@
                                     <div class="col-md-6">
                                         <h3>Count</h3>
                                         <p>3. How many items you want to generate?</p>
-                                        <p><input type="text" class="form-control" placeholder="Items Count..." v-model="items_count" /></p>
+                                        <p><input type="text" class="form-control" placeholder="Items Count..." v-model="itemsCount" /></p>
                                     </div>
                                     <div class="col-md-6">
                                         <h3>Output Format</h3>
                                         <p>4. Choose the output format for your generated data.</p>
                                         <p>
-                                            <select class="form-control" v-model="output_format">
-                                                <option v-for="format in available_output_formats" value="{{ format.extension }}">{{ format.name }}</option>
+                                            <select class="form-control" v-model="outputFormat">
+                                                <option v-for="format in availableOutputFormats" value="{{ format.extension }}">{{ format.name }}</option>
                                             </select>
                                         </p>
                                     </div>
@@ -99,7 +97,7 @@
                                     <div class="col-md-12">
                                         <button class="btn btn-success form-control generateButton" v-on:click="generateFile">
                                             <span v-if="isGenerating">Generating your file, please wait...</span>
-                                            <span v-else>Generate {{ items_count }} items in one nice file!</span>
+                                            <span v-else>Generate {{ itemsCount }} items in one nice file!</span>
                                         </button>
                                     </div>
                                 </div>
@@ -129,34 +127,7 @@
                                     </div>
                                 </sidebar>
 
-                                <sidebar :show.sync="showFieldsSetsSidebar" placement="right" header="Choose Fields Set" :width="550">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h3>Choose a fields set from your saved collection.</h3>
-
-                                            <hr />
-
-                                            <div v-for="set in fieldsSets">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h4 class="set-name">{{ set.name }}</h4>
-                                                        <p class="set-fields"><i>{{ set.fields | show_names }}</i></p>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <p><button class="btn btn-success form-control" v-on:click="useSavedFieldsSet($index)">Use Set</button></p>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <p><button class="btn btn-danger form-control" v-on:click="deleteFieldsSet(set._id)">Trash</button></p>
-                                                    </div>
-                                                </div>
-
-                                                <hr class="set-separator" />
-                                            </div>
-
-                                            <p v-if="fieldsSets.length == 0"><i>Oops, no saved sets right now! To save one, just choose the fields you want, and then click on "Save Fields Set".</i></p>
-                                        </div>
-                                    </div>
-                                </sidebar>
+                                <fields-sets></fields-sets>
                             </div>
                         </div>
                     </div>
@@ -166,6 +137,6 @@
 
         <script src="<%= asset('assets/vendor/vue/dist/vue.js') %>"></script>
         <script src="<%= asset('assets/vendor/vue-strap/dist/vue-strap.js') %>"></script>
-        <script src="<%= asset('assets/js/bundle-min.js') %>"></script>
+        <script src="<%= asset('assets/js/bundle.js') %>"></script>
     </body>
 </html>
