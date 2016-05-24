@@ -1,6 +1,6 @@
 # Mockie!
 
-A random data generation microservice. Both via API or a simple client.
+A random data generation microservice. Via API, or using a simple client.
 
 ## Install
 
@@ -11,3 +11,12 @@ Done!
 
 * The API will be available at http://localhost:3000
 * The client will be available at http://localhost:8000
+
+## Coming Soon
+
+*Order by priority, descending.*
+
+* Frontend application refactoring;
+* Better README file;
+* Smart Fields;
+* Macro Fields;
