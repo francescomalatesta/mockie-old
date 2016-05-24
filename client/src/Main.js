@@ -10,6 +10,7 @@ require('./Filters/ShowNames')();
 var FieldTypeSelector = require('./Components/FieldTypeSelector')();
 var FieldsSets = require('./Components/FieldsSets')();
 var PreviewBox = require('./Components/PreviewBox')();
+var Generator = require('./Components/Generator')();
 
 // Load config file with basic bootstrap and default data
 var config = require('./config');
@@ -22,18 +23,13 @@ new Vue({
         itemsCount: 100,
 
         outputFormat: 'json',
-        availableOutputFormats: config.availableOutputFormats,
-
-        // UI
-        isGenerating: false
+        availableOutputFormats: config.availableOutputFormats
     },
     components: {
         'preview-box': PreviewBox,
         'field-type-selector': FieldTypeSelector,
-        'fields-sets': FieldsSets
-    },
-    http: {
-        root: ''
+        'fields-sets': FieldsSets,
+        'generator': Generator
     },
     ready: function () {
         this.$broadcast('refresh-preview', this.fields);
@@ -51,43 +47,6 @@ new Vue({
                 this.$broadcast('refresh-preview', this.fields);
             } else {
                 alert('You must specify at least one field!');
-            }
-        },
-        generateFile: function () {
-            var mustRefresh = true;
-            var fieldsArray = [];
-
-            for(var c in this.fields){
-                var item = this.fields[c];
-
-                if(item.type === null){
-                    mustRefresh = false;
-                }
-
-                if(item.name === '') {
-                    mustRefresh = false;
-                }
-            }
-
-            if(mustRefresh) {
-                for(var i in this.fields){
-                    fieldsArray.push({
-                        name: this.fields[i].name,
-                        type: this.fields[i].type
-                    });
-                }
-
-                this.isGenerating = true;
-                this.$http({url: 'http://localhost:3000/generate', method: 'POST', data: {
-                    fields: fieldsArray,
-                    count: this.itemsCount,
-                    output: this.outputFormat
-                }}).then(function (response) {
-                    this.isGenerating = false;
-                    window.location.href = response.data.url;
-                }, function (response) {
-                    alert('Some issues occurred during the generation procedure. Try again.');
-                });
             }
         }
     },

@@ -95,10 +95,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-success form-control generateButton" v-on:click="generateFile">
-                                            <span v-if="isGenerating">Generating your file, please wait...</span>
-                                            <span v-else>Generate {{ itemsCount }} items in one nice file!</span>
-                                        </button>
+                                        <generator :fields.sync="fields" :items_count.sync="itemsCount" :output_format.sync="outputFormat"></generator>
                                     </div>
                                 </div>
 
