@@ -46,7 +46,7 @@
                                                     <input type="text" class="form-control" placeholder="Field Name..." v-model="field.name" />
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <button class="btn btn-info form-control" v-on:click="setSelectedField($index)" @click="showFieldTypeSidebar = true">
+                                                    <button class="btn btn-info form-control" v-on:click="this.$broadcast('select-field-type', {index: $index, name: field.name})">
                                                         <span v-if="field.type === null">Choose Type</span>
                                                         <span v-else>Chosen Type: {{ field.typeLabel }}</span>
                                                     </button>
@@ -102,31 +102,7 @@
                                     </div>
                                 </div>
 
-                                <sidebar :show.sync="showFieldTypeSidebar" placement="right" header="Choose Field Type" :width="550">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h3>Choose the type for the <b>"{{ fields[currentlySelectedField].name }}"</b> field.</h3>
-
-                                            <hr>
-
-                                            <p>
-                                                <select class="form-control" v-model="chosenFieldTypeCategory">
-                                                    <option value="{{ $index }}" v-for="fieldTypeCategory in availableFieldTypeCategories">
-                                                        {{ fieldTypeCategory.name }}
-                                                    </option>
-                                                </select>
-                                            </p>
-
-                                            <hr />
-
-                                            <h3>Category: {{ availableFieldTypeCategories[chosenFieldTypeCategory].name }}</h3>
-                                            <p v-for="type in availableFieldTypeCategories[chosenFieldTypeCategory].types">
-                                                <button class="btn btn-default form-control" v-on:click="changeFieldType(currentlySelectedField, $index)">{{ type.name }}</button>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </sidebar>
-
+                                <field-type-selector></field-type-selector>
                                 <fields-sets></fields-sets>
                             </div>
                         </div>

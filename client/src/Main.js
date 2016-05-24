@@ -1,39 +1,35 @@
 'use strict';
 
+// Use vue-resource to make http calls
 Vue.use(require('vue-resource'));
 
-// Load Filters
+// Load filters
 require('./Filters/ShowNames')();
 
-// Load Components
+// Load components
+var FieldTypeSelector = require('./Components/FieldTypeSelector')();
 var FieldsSets = require('./Components/FieldsSets')();
 var PreviewBox = require('./Components/PreviewBox')();
 
+// Load config file with basic bootstrap and default data
 var config = require('./config');
 
 new Vue({
     el: '#application',
     data: {
         fields: config.defaultFields,
-        itemsCount: 100,
-        outputFormat: 'json',
 
+        itemsCount: 100,
+
+        outputFormat: 'json',
         availableOutputFormats: config.availableOutputFormats,
 
-        availableFieldTypeCategories: require('./Fields/AvailableFields').fieldTypeCategories,
-        fieldsSets: [],
-
         // UI
-        showFieldTypeSidebar: false,
-        currentlySelectedField: 0,
-        chosenFieldTypeCategory: 0,
         isGenerating: false
     },
     components: {
-        sidebar: window.VueStrap.aside,
-        accordion: window.VueStrap.accordion,
-
         'preview-box': PreviewBox,
+        'field-type-selector': FieldTypeSelector,
         'fields-sets': FieldsSets
     },
     http: {
@@ -55,60 +51,6 @@ new Vue({
                 this.$broadcast('refresh-preview', this.fields);
             } else {
                 alert('You must specify at least one field!');
-            }
-        },
-        setSelectedField: function (index) {
-            this.currentlySelectedField = index;
-        },
-        changeFieldType: function (fieldIndex, fieldTypeIndex) {
-            var fields = this.fields;
-
-            fields[fieldIndex].type =
-                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].slug +
-                '.' +
-                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[fieldTypeIndex].slug;
-
-            fields[fieldIndex].typeLabel =
-                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].name +
-                ' > ' +
-                this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[fieldTypeIndex].name;
-
-            this.fields = fields;
-            this.$broadcast('refresh-preview', this.fields);
-            
-            this.showFieldTypeSidebar = false;
-        },
-        refreshPreview: function () {
-            var mustRefresh = true;
-            var fieldsArray = [];
-
-            for(var c in this.fields){
-                var item = this.fields[c];
-
-                if(item.type === null){
-                    mustRefresh = false;
-                }
-
-                if(item.name === '') {
-                    mustRefresh = false;
-                }
-            }
-
-            if(mustRefresh) {
-                for(var i in this.fields){
-                    fieldsArray.push({
-                        name: this.fields[i].name,
-                        type: this.fields[i].type
-                    });
-                }
-
-                this.$http({url: 'http://localhost:3000/preview', method: 'POST', data: {
-                    fields: fieldsArray
-                }}).then(function (response) {
-                    this.previewContent = response.data;
-                }, function (response) {
-                    this.previewContent = 'Errors. Try again.';
-                });
             }
         },
         generateFile: function () {
@@ -152,6 +94,16 @@ new Vue({
     events: {
         'change-fields': function (chosenFieldsSet) {
             this.fields = chosenFieldsSet;
+        },
+        'change-field-type': function (fieldData) {
+            var fields = this.fields;
+
+            fields[fieldData.index].type = fieldData.type;
+            fields[fieldData.index].typeLabel = fieldData.typeLabel;
+
+            this.fields = fields;
+
+            this.$broadcast('refresh-preview', this.fields);
         }
     }
 });
