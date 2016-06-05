@@ -35,6 +35,16 @@ server.register([Vision, Inert], function (err) {
 
     server.route({
         method: 'GET',
+        path: '/assets/vendor/bootstrap/{param*}',
+        handler: {
+            directory: {
+                path: 'node_modules/bootstrap'
+            }
+        }
+    });
+
+    server.route({
+        method: 'GET',
         path: '/assets/{param*}',
         handler: {
             directory: {

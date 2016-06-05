@@ -16,6 +16,7 @@
   "author": "Francesco Malatesta",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^3.3.6",
     "ejs": "^2.4.1",
     "hapi": "^13.4.0",
     "inert": "^4.0.0",
