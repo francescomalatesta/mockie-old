@@ -28,7 +28,7 @@
 <style>
 </style>
 <script>
-    export default {
+    module.exports = {
         data: function () {
             return {
                 currentlySelectedField: 0,

@@ -8,7 +8,7 @@
 </style>
 
 <script>
-    export default {
+    module.exports = {
         data: function () {
             return {
                 previewContent: ''

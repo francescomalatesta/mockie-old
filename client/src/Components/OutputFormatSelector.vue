@@ -12,7 +12,7 @@
 </style>
 
 <script>
-    export default {
+    module.exports = {
         data: function () {
             return {
                 availableOutputFormats: require('../config').availableOutputFormats

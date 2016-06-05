@@ -33,7 +33,7 @@
 </style>
 
 <script>
-    export default {
+    module.exports = {
         data: function () {
             return {
                 fieldsSets: [],
