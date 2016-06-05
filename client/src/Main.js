@@ -20,8 +20,8 @@ new Vue({
     el: '#application',
     data: {
         fields: config.defaultFields,
-        itemsCount: 100,
-        outputFormat: 'json'
+        itemsCount: config.defaultItemsCount,
+        outputFormat: config.defaultOutputFormat
     },
     components: {
         'preview-box': PreviewBox,

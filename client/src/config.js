@@ -7,6 +7,10 @@ module.exports = {
         { name: "email", type: "internet.email", typeLabel: "Internet > Email" }
     ],
 
+    defaultItemsCount: 100,
+
+    defaultOutputFormat: 'json',
+
     availableOutputFormats: [
         {'name': 'JSON', 'extension': 'json'},
         {'name': 'CSV', 'extension': 'csv'},
