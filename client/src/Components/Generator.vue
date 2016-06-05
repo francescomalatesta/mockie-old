@@ -1,17 +1,21 @@
-'use strict';
+<template>
+    <button class="btn btn-success form-control generateButton" v-on:click="generate">
+        <span v-if="isGenerating">Generating your file, please wait...</span>
+        <span v-else>Generate {{ items_count }} items in one nice file!</span>
+    </button>
+</template>
 
-module.exports = function () {
-    return Vue.extend({
+<style>
+</style>
+
+<script>
+    export default {
         data: function () {
             return {
                 isGenerating: false
             }
         },
         props: ['fields', 'items_count', 'output_format'],
-        template: `<button class="btn btn-success form-control generateButton" v-on:click="generate">
-            <span v-if="isGenerating">Generating your file, please wait...</span>
-            <span v-else>Generate {{ items_count }} items in one nice file!</span>
-        </button>`,
         methods: {
             generate: function () {
                 var canGenerate = true;
@@ -54,5 +58,5 @@ module.exports = function () {
         http: {
             root: ''
         }
-    });
-};
+    }
+</script>

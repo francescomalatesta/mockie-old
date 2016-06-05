@@ -1,15 +1,19 @@
-'use strict';
+<template>
+    <h2>Preview</h2>
+    <p>2. Here's an example of what you're going to generate.</p>
+    <pre>{{ previewContent | json }}</pre>
+</template>
 
-module.exports = function () {
-    return Vue.extend({
+<style>
+</style>
+
+<script>
+    export default {
         data: function () {
             return {
                 previewContent: ''
             };
         },
-        template: `<h2>Preview</h2>
-            <p>2. Here's an example of what you're going to generate.</p>
-            <pre>{{ previewContent | json }}</pre>`,
         methods: {
             refreshPreview: function (currentFieldsSet) {
                 var mustRefresh = true;
@@ -50,5 +54,5 @@ module.exports = function () {
                 this.refreshPreview(currentFieldsSet);
             }
         }
-    });
-};
+    };
+</script>

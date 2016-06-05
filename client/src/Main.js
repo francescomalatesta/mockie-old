@@ -7,11 +7,11 @@ Vue.use(require('vue-resource'));
 require('./Filters/ShowNames')();
 
 // Load components
-var FieldTypeSelector = require('./Components/FieldTypeSelector')();
-var OutputFormatSelector = require('./Components/OutputFormatSelector')();
-var FieldsSets = require('./Components/FieldsSets')();
-var PreviewBox = require('./Components/PreviewBox')();
-var Generator = require('./Components/Generator')();
+var FieldTypeSelector = require('./Components/FieldTypeSelector.vue');
+var OutputFormatSelector = require('./Components/OutputFormatSelector.vue');
+var FieldsSets = require('./Components/FieldsSets.vue');
+var PreviewBox = require('./Components/PreviewBox.vue');
+var Generator = require('./Components/Generator.vue');
 
 // Load config file with basic bootstrap and default data
 var config = require('./config');
