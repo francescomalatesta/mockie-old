@@ -52,6 +52,7 @@ new Vue({
     events: {
         'change-fields': function (chosenFieldsSet) {
             this.fields = chosenFieldsSet;
+            this.$broadcast('refresh-preview', this.fields);
         },
         'change-field-type': function (fieldData) {
             var fields = this.fields;

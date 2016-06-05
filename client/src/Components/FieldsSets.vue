@@ -64,7 +64,6 @@
             useSavedFieldsSet : function (index) {
                 this.showFieldsSetsSidebar = false;
                 this.$dispatch('change-fields', this.fieldsSets[index].fields);
-                this.refreshPreview();
             },
 
             saveCurrentSet: function (currentFieldsSet) {
