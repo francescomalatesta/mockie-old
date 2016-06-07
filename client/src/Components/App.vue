@@ -142,7 +142,7 @@
                 this.$broadcast('refresh-preview', this.fields);
             },
             'change-field-type': function (fieldData) {
-                var fields = this.fields;
+                let fields = this.fields;
 
                 fields[fieldData.index].type = fieldData.type;
                 fields[fieldData.index].typeLabel = fieldData.typeLabel;

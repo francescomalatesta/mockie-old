@@ -48,12 +48,12 @@
         },
         methods: {
             changeFieldType: function (index) {
-                var type =
+                let type =
                         this.availableFieldTypeCategories[this.chosenFieldTypeCategory].slug +
                         '.' +
                         this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[index].slug;
 
-                var typeLabel =
+                let typeLabel =
                         this.availableFieldTypeCategories[this.chosenFieldTypeCategory].name +
                         ' > ' +
                         this.availableFieldTypeCategories[this.chosenFieldTypeCategory].types[index].name;

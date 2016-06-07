@@ -16,7 +16,6 @@ Done!
 
 *Order by priority, descending.*
 
-* Switch to ES2015 components;
 * Switch to Container/Presentational components;
 * Better README file;
 * Smart Fields;
