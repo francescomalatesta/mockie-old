@@ -8,19 +8,21 @@
 </style>
 
 <script>
-    module.exports = {
-        data: function () {
+    import axios from 'axios';
+
+    export default {
+        data() {
             return {
                 previewContent: ''
-            };
+            }
         },
         methods: {
             refreshPreview: function (currentFieldsSet) {
-                var mustRefresh = true;
-                var fieldsArray = [];
+                let mustRefresh = true;
+                let fieldsArray = [];
 
-                for(var c in currentFieldsSet){
-                    var item = currentFieldsSet[c];
+                for(let c in currentFieldsSet){
+                    let item = currentFieldsSet[c];
 
                     if(item.type === null){
                         mustRefresh = false;
@@ -32,19 +34,22 @@
                 }
 
                 if(mustRefresh) {
-                    for(var i in currentFieldsSet){
+                    for(let i in currentFieldsSet){
                         fieldsArray.push({
                             name: currentFieldsSet[i].name,
                             type: currentFieldsSet[i].type
                         });
                     }
 
-                    this.$http({url: 'http://localhost:3000/preview', method: 'POST', data: {
+                    let httpClient = axios.create({});
+                    let that = this;
+
+                    httpClient.post('http://localhost:3000/preview', {
                         fields: fieldsArray
-                    }}).then(function (response) {
-                        this.previewContent = response.data;
-                    }, function (response) {
-                        this.previewContent = 'Errors. Try again.';
+                    }).then(function (response) {
+                        that.previewContent = response.data;
+                    }).catch(function () {
+                        alert('Some issues occurred during preview generation. Try again.');
                     });
                 }
             }
@@ -54,5 +59,5 @@
                 this.refreshPreview(currentFieldsSet);
             }
         }
-    };
+    }
 </script>

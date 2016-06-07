@@ -94,20 +94,20 @@
 </style>
 
 <script>
-    var FieldTypeSelector = require('./FieldTypeSelector.vue');
-    var OutputFormatSelector = require('./OutputFormatSelector.vue');
-    var FieldsSets = require('./FieldsSets.vue');
-    var PreviewBox = require('./PreviewBox.vue');
-    var Generator = require('./Generator.vue');
+    import FieldTypeSelector from './FieldTypeSelector.vue';
+    import OutputFormatSelector from './OutputFormatSelector.vue';
+    import FieldsSets from './FieldsSets.vue';
+    import PreviewBox from './PreviewBox.vue';
+    import Generator from './Generator.vue';
 
-    var config = require('../config');
+    import { defaultFields, defaultItemsCount, defaultOutputFormat } from '../config';
 
-    export default{
+    export default {
         data: function(){
             return {
-                fields: config.defaultFields,
-                itemsCount: config.defaultItemsCount,
-                outputFormat: config.defaultOutputFormat
+                fields: defaultFields,
+                itemsCount: defaultItemsCount,
+                outputFormat: defaultOutputFormat
             };
         },
         components: {

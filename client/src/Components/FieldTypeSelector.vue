@@ -28,20 +28,23 @@
 <style>
 </style>
 <script>
-    module.exports = {
-        data: function () {
+    import { aside } from 'vue-strap';
+    import { fieldTypeCategories } from '../Fields/AvailableFields';
+
+    export default {
+        data() {
             return {
                 currentlySelectedField: 0,
                 currentlySelectedFieldName: '',
 
                 chosenFieldTypeCategory: 0,
-                availableFieldTypeCategories: require('../Fields/AvailableFields').fieldTypeCategories,
+                availableFieldTypeCategories: fieldTypeCategories,
 
                 showSidebar: false
             }
         },
         components: {
-            sidebar: window.VueStrap.aside
+            sidebar: aside
         },
         methods: {
             changeFieldType: function (index) {
@@ -66,9 +69,6 @@
         },
         events: {
             'select-field-type': function (selectedFieldData) {
-
-                console.log(selectedFieldData);
-
                 this.currentlySelectedField = selectedFieldData.index;
                 this.currentlySelectedFieldName = selectedFieldData.name;
 

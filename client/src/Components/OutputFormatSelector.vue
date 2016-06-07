@@ -12,12 +12,14 @@
 </style>
 
 <script>
-    module.exports = {
-        data: function () {
+    import { availableOutputFormats } from '../config';
+
+    export default {
+        data() {
             return {
-                availableOutputFormats: require('../config').availableOutputFormats
+                availableOutputFormats: availableOutputFormats
             }
         },
         props: ['output_format']
-    };
+    }
 </script>

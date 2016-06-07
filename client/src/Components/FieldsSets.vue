@@ -33,60 +33,71 @@
 </style>
 
 <script>
-    module.exports = {
-        data: function () {
+    import axios from 'axios';
+    import { aside } from 'vue-strap';
+
+    export default {
+        data() {
             return {
                 fieldsSets: [],
                 showFieldsSetsSidebar: false
             };
         },
-        components: {
-            sidebar: window.VueStrap.aside
-        },
-        http: {
-            root: ''
-        },
         ready: function () {
             this.loadFieldsSets();
+        },
+        components: {
+            sidebar: aside
         },
         methods: {
             openSidebar: function () {
                 this.showFieldsSetsSidebar = true;
             },
             loadFieldsSets: function () {
-                this.$http({url: 'http://localhost:3000/fields-sets', method: 'GET', data: {}}).then(function (response) {
-                    this.fieldsSets = response.data;
-                }, function (response) {
-                    alert('Errors while retrieving the fields sets list.');
-                });
-            },
+                let httpClient = axios.create({});
+                let that = this;
 
+                httpClient.get('http://localhost:3000/fields-sets')
+                        .then(function(response){
+                            that.fieldsSets = response.data;
+                        })
+                        .catch(function(error){
+                            alert('Errors while retrieving the fields sets list.');
+                        });
+            },
             useSavedFieldsSet : function (index) {
                 this.showFieldsSetsSidebar = false;
                 this.$dispatch('change-fields', this.fieldsSets[index].fields);
             },
-
             saveCurrentSet: function (currentFieldsSet) {
-                var setName = prompt("Please enter a name for your fields set:", "My Set Name");
+                let setName = prompt("Please enter a name for your fields set:", "My Set Name");
 
-                this.$http({url: 'http://localhost:3000/add-set', method: 'POST', data: {
+                let httpClient = axios.create({});
+                let that = this;
+
+                httpClient.post('http://localhost:3000/add-set', {
                     fields: currentFieldsSet,
                     name: setName
-                }}).then(function (response) {
+                }).then(function (response) {
                     alert('Saved!');
-                    this.loadFieldsSets();
-                }, function (response) {
+                    that.loadFieldsSets();
+                }).catch(function (error) {
                     alert('Some issues occurred during the save procedure. Try again.');
                 });
             },
 
             deleteFieldsSet: function (setId) {
                 if(confirm('Are you sure to delete this saved set?')) {
-                    this.$http({url: 'http://localhost:3000/delete-set/' + setId, method: 'GET', data: {}}).then(function (response) {
-                        this.loadFieldsSets();
-                    }, function (response) {
-                        alert('Errors while removing the fields set.');
-                    });
+                    let httpClient = axios.create({});
+                    let that = this;
+
+                    httpClient.get('http://localhost:3000/delete-set/' + setId)
+                            .then(function (response) {
+                                that.loadFieldsSets();
+                            })
+                            .catch(function (error) {
+                                alert('Errors while removing the fields set.');
+                            });
                 }
             }
         },
